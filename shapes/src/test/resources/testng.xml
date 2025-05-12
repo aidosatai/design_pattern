@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Shapes Test Suite">
+    <test name="Entity Tests">
+        <classes>
+            <class name="lt.esdc.shapes.entity.PointTest"/>
+            <class name="lt.esdc.shapes.entity.RectangleTest"/>
+        </classes>
+    </test>
+    <test name="Service Tests">
+        <classes>
+            <class name="lt.esdc.shapes.service.RectangleServiceTest"/>
+        </classes>
+    </test>
+    <test name="Validator Tests">
+        <classes>
+            <class name="lt.esdc.shapes.validator.RectangleValidatorTest"/>
+        </classes>
+    </test>
+    <test name="Factory Tests">
+        <classes>
+            <class name="lt.esdc.shapes.factory.RectangleFactoryTest"/>
+        </classes>
+    </test>
+    <test name="Repository Tests">
+        <classes>
+            <class name="lt.esdc.shapes.repository.RectangleRepositoryTest"/>
+        </classes>
+    </test>
+    <test name="Warehouse Tests">
+        <classes>
+            <class name="lt.esdc.shapes.warehouse.ShapeWarehouseTest"/>
+        </classes>
+    </test>
+</suite>
