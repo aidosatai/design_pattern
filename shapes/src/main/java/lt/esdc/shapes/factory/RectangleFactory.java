@@ -36,7 +36,6 @@ public class RectangleFactory extends ShapeFactory {
             Point point3 = new Point(x3, y3);
             Point point4 = new Point(x4, y4);
             
-            // Используем предоставленный ID или генерируем новый, если ID не был предоставлен
             String rectangleId = (id != null) ? id : IDGenerator.generateId();
 
             Rectangle rectangle = new Rectangle(rectangleId, point1, point2, point3, point4);

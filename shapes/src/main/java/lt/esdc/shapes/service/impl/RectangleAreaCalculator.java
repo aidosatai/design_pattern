@@ -18,7 +18,6 @@ public class RectangleAreaCalculator implements AreaCalculator<Rectangle> {
         Point p3 = rectangle.getPoint3();
         Point p4 = rectangle.getPoint4();
         
-        // Вычисление площади по формуле Гаусса для произвольного четырехугольника
         double area = 0.5 * Math.abs(
             (p1.getX() * p2.getY() - p2.getX() * p1.getY()) +
             (p2.getX() * p3.getY() - p3.getX() * p2.getY()) +
