@@ -39,12 +39,12 @@ public class ShapeWarehouse implements ShapeObserver {
         areaMap.put(shapeId, area);
     }
     
-    public Double getPerimeter(String shapeId) {
-        return perimeterMap.get(shapeId);
+    public double getPerimeter(String shapeId) {
+        return perimeterMap.getOrDefault(shapeId, 0.0);
     }
-    
-    public Double getArea(String shapeId) {
-        return areaMap.get(shapeId);
+
+    public double getArea(String shapeId) {
+        return areaMap.getOrDefault(shapeId, 0.0);
     }
     
     public void clear() {
@@ -53,14 +53,14 @@ public class ShapeWarehouse implements ShapeObserver {
     }
     
     @Override
-    public void onShapeChanged(String shapeId, Shape shape) {
+    public void update(Shape shape) {
         if (rectangleService != null && shape instanceof Rectangle) {
             Rectangle rectangle = (Rectangle) shape;
-            double perimeter = rectangle.calculatePerimeter();
-            double area = rectangle.calculateArea();
-            
-            storePerimeter(shapeId, perimeter);
-            storeArea(shapeId, area);
+            double perimeter = rectangleService.calculatePerimeter(rectangle);
+            double area = rectangleService.calculateArea(rectangle);
+
+            storePerimeter(rectangle.getId(), perimeter);
+            storeArea(rectangle.getId(), area);
         }
     }
 }

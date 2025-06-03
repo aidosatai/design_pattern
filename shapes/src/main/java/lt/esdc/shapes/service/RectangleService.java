@@ -7,7 +7,16 @@ import lt.esdc.shapes.warehouse.ShapeWarehouse;
 public class RectangleService implements ShapeService<Rectangle> {
     
     private final ShapeWarehouse warehouse;
-    
+
+    /**
+     * Creates a service using the default {@link ShapeWarehouse} instance.
+     * This constructor is primarily used in tests where a simplified
+     * setup is required.
+     */
+    public RectangleService() {
+        this(ShapeWarehouse.getInstance());
+    }
+
     public RectangleService(ShapeWarehouse warehouse) {
         this.warehouse = warehouse;
     }
