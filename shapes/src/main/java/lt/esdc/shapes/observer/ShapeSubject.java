@@ -23,9 +23,9 @@ public class ShapeSubject {
         observers.remove(observer);
     }
     
-    public void notifyObservers(String shapeId, Shape shape) {
+    public void notifyObservers(Shape shape) {
         for (ShapeObserver observer : observers) {
-            observer.onShapeChanged(shapeId, shape);
+            observer.update(shape);
         }
     }
 }

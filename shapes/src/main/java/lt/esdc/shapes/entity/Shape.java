@@ -1,10 +1,16 @@
 package lt.esdc.shapes.entity;
 
-import lt.esdc.shapes.observer.ShapeObserver;
+import lt.esdc.shapes.observer.ShapeSubject;
 
-public abstract class Shape {
+/**
+ * Base class for all shapes.
+ *
+ * <p>It now extends {@link ShapeSubject} so that each shape can have
+ * multiple observers.  Previous implementation supported only a single
+ * observer which did not align with the tests.</p>
+ */
+public abstract class Shape extends ShapeSubject {
     private String id;
-    private ShapeObserver observer;
 
     public Shape(String id) {
         this.id = id;
@@ -18,12 +24,8 @@ public abstract class Shape {
         this.id = id;
     }
 
-    public void setObserver(ShapeObserver observer) {
-        this.observer = observer;
-    }
-
     protected void notifyObserver() {
-        if (observer != null) observer.onShapeChanged(this.id, this);
+        notifyObservers(this);
     }
 
     public abstract double calculateArea();
