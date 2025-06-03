@@ -1,8 +1,7 @@
 package lt.esdc.shapes;
 
 import lt.esdc.shapes.entity.Rectangle;
-import lt.esdc.shapes.factory.ShapeFactory;
-import lt.esdc.shapes.observer.ShapeSubject;
+import lt.esdc.shapes.factory.RectangleFactory;
 import lt.esdc.shapes.repository.RectangleRepository;
 import lt.esdc.shapes.repository.specification.ConvexSpecification;
 import lt.esdc.shapes.repository.specification.PerimeterRangeSpecification;
@@ -35,7 +34,8 @@ public class ShapeApplication {
         RectangleReader reader = new RectangleReader();
         List<String> lines = reader.readLinesFromFile(RECTANGLES_FILE);
         
-        RectangleParserService parserService = new RectangleParserService();
+        RectangleFactory factory = new RectangleFactory(new RectangleValidator());
+        RectangleParserService parserService = new RectangleParserService(factory);
         List<Rectangle> rectangles = parserService.parseRectangles(lines);
         
         LOGGER.info("Read {} valid rectangles from file", rectangles.size());

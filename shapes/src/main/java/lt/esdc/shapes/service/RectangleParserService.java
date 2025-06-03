@@ -4,7 +4,6 @@ import lt.esdc.shapes.entity.Rectangle;
 import lt.esdc.shapes.exception.InvalidShapeException;
 import lt.esdc.shapes.entity.Point;
 import lt.esdc.shapes.factory.RectangleFactory;
-import lt.esdc.shapes.factory.ShapeFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,11 +59,8 @@ public class RectangleParserService {
             // Создаем прямоугольник через фабрику
             String id = parts[0]; // ID из строки данных
             return (Rectangle) rectangleFactory.createShape(
-                id, 
-                String.valueOf(points[0].getX()), String.valueOf(points[0].getY()),
-                String.valueOf(points[1].getX()), String.valueOf(points[1].getY()),
-                String.valueOf(points[2].getX()), String.valueOf(points[2].getY()),
-                String.valueOf(points[3].getX()), String.valueOf(points[3].getY()));
+                id,
+                points[0], points[1], points[2], points[3]);
         } catch (InvalidShapeException e) {
             LOGGER.warn("Invalid rectangle data: {}", line, e);
             return null;
