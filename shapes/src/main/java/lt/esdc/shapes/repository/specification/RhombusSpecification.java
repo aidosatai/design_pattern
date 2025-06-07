@@ -2,13 +2,13 @@ package lt.esdc.shapes.repository.specification;
 
 import lt.esdc.shapes.entity.Rectangle;
 import lt.esdc.shapes.repository.Specification;
-import lt.esdc.shapes.service.RectangleService;
+import lt.esdc.shapes.service.RectangleServiceInterface;
 
 public class RhombusSpecification implements Specification<Rectangle> {
 
-    private final RectangleService rectangleService;
+    private final RectangleServiceInterface rectangleService;
 
-    public RhombusSpecification(RectangleService rectangleService) {
+    public RhombusSpecification(RectangleServiceInterface rectangleService) {
         this.rectangleService = rectangleService;
     }
 

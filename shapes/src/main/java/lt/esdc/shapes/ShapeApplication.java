@@ -9,7 +9,8 @@ import lt.esdc.shapes.repository.specification.RhombusSpecification;
 import lt.esdc.shapes.repository.specification.SquareSpecification;
 import lt.esdc.shapes.repository.specification.TrapezoidSpecification;
 import lt.esdc.shapes.service.RectangleParserService;
-import lt.esdc.shapes.service.RectangleService;
+import lt.esdc.shapes.service.RectangleServiceInterface;
+import lt.esdc.shapes.service.impl.RectangleServiceImpl;
 import lt.esdc.shapes.util.RectangleReader;
 import lt.esdc.shapes.validator.RectangleValidator;
 import lt.esdc.shapes.warehouse.ShapeWarehouse;
@@ -26,7 +27,7 @@ public class ShapeApplication {
         LOGGER.info("Starting Shapes Application");
 
         ShapeWarehouse warehouse = ShapeWarehouse.getInstance();
-        RectangleService service = new RectangleService(warehouse);
+        RectangleServiceInterface service = new RectangleServiceImpl(warehouse);
         RectangleRepository repository = new RectangleRepository();
         
         warehouse.setRectangleService(service);
@@ -95,7 +96,7 @@ public class ShapeApplication {
                     rectangle.getId(), service.calculatePerimeter(rectangle));
         }
         
-        // Demonstrate observer pattern
+        // Demonstrate observer
         if (!rectangles.isEmpty()) {
             Rectangle rectangle = rectangles.get(0);
             double oldX = rectangle.getPoint1().getX();
@@ -109,8 +110,6 @@ public class ShapeApplication {
             // Modify the rectangle
             rectangle.getPoint1().setX(oldX + 1.0);
             rectangle.getPoint1().setY(oldY + 1.0);
-            
-            // The shape will notify its observer automatically when modified
             
             LOGGER.info("After modification - Rectangle {}: Point1 = ({}, {}), Perimeter = {}, Area = {}", 
                     rectangle.getId(), rectangle.getPoint1().getX(), rectangle.getPoint1().getY(), 

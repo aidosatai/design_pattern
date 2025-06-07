@@ -20,9 +20,8 @@ public abstract class Shape extends ShapeSubject {
         return this.id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    // ID is now immutable after creation
+    // Setter method removed to enforce immutability
 
     protected void notifyObserver() {
         notifyObservers(this);

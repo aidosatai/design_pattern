@@ -7,7 +7,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import lt.esdc.shapes.service.RectangleServiceInterface;
 
 /**
  * Concrete implementation of a repository for Rectangle objects.
@@ -47,7 +50,18 @@ public class RectangleRepository implements ShapeRepository<Rectangle> {
     
     @Override
     public Rectangle getById(String id) {
-        return rectangles.get(id);
+        Rectangle original = rectangles.get(id);
+        if (original == null) {
+            return null;
+        }
+        // Create a deep copy to preserve encapsulation
+        return new Rectangle(
+            original.getId(),
+            new lt.esdc.shapes.entity.Point(original.getPoint1().getX(), original.getPoint1().getY()),
+            new lt.esdc.shapes.entity.Point(original.getPoint2().getX(), original.getPoint2().getY()),
+            new lt.esdc.shapes.entity.Point(original.getPoint3().getX(), original.getPoint3().getY()),
+            new lt.esdc.shapes.entity.Point(original.getPoint4().getX(), original.getPoint4().getY())
+        );
     }
     
     @Override
@@ -68,14 +82,28 @@ public class RectangleRepository implements ShapeRepository<Rectangle> {
                 .collect(Collectors.toList());
     }
     
-    public List<Rectangle> sortByPerimeter(lt.esdc.shapes.service.RectangleService service) {
+    /**
+     * Sort rectangles by perimeter in ascending order.
+     *
+     * @param service Service to calculate the perimeter
+     * @return A list of rectangles sorted by perimeter
+     */
+    public List<Rectangle> sortByPerimeter(RectangleServiceInterface service) {
         return rectangles.values().stream()
+                .filter(Objects::nonNull)
                 .sorted(Comparator.comparingDouble(service::calculatePerimeter))
                 .collect(Collectors.toList());
     }
     
-    public List<Rectangle> sortByArea(lt.esdc.shapes.service.RectangleService service) {
+    /**
+     * Sort rectangles by area in ascending order.
+     *
+     * @param service Service to calculate the area
+     * @return A list of rectangles sorted by area
+     */
+    public List<Rectangle> sortByArea(RectangleServiceInterface service) {
         return rectangles.values().stream()
+                .filter(Objects::nonNull)
                 .sorted(Comparator.comparingDouble(service::calculateArea))
                 .collect(Collectors.toList());
     }

@@ -21,6 +21,25 @@ public class Rectangle extends Shape {
         this.point3 = point3;
         this.point4 = point4;
         this.state = RectangleStateManager.determineState(this);
+        
+        // Register change listeners for all points
+        registerPointChangeListeners();
+    }
+    
+    /**
+     * Registers point change listeners to all points to ensure notifications
+     * when points are modified directly
+     */
+    private void registerPointChangeListeners() {
+        Point.ChangeListener listener = point -> {
+            updateState();
+            notifyObserver();
+        };
+        
+        if (point1 != null) point1.setChangeListener(listener);
+        if (point2 != null) point2.setChangeListener(listener);
+        if (point3 != null) point3.setChangeListener(listener);
+        if (point4 != null) point4.setChangeListener(listener);
     }
     
     public Point getPoint1() {
@@ -113,7 +132,6 @@ public class Rectangle extends Shape {
     
     @Override
     public double calculateArea() {
-        // Вычисление площади прямоугольника по формуле Гаусса для произвольного четырехугольника
         double area = 0.5 * Math.abs(
             (point1.getX() * point2.getY() - point2.getX() * point1.getY()) +
             (point2.getX() * point3.getY() - point3.getX() * point2.getY()) +
@@ -125,7 +143,6 @@ public class Rectangle extends Shape {
     
     @Override
     public double calculatePerimeter() {
-        // Вычисление периметра как суммы длин всех сторон
         double side1 = calculateDistance(point1, point2);
         double side2 = calculateDistance(point2, point3);
         double side3 = calculateDistance(point3, point4);

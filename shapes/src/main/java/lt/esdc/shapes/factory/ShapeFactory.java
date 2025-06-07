@@ -1,33 +1,34 @@
 package lt.esdc.shapes.factory;
 
 import lt.esdc.shapes.entity.Point;
-import lt.esdc.shapes.entity.Rectangle;
 import lt.esdc.shapes.entity.Shape;
 import lt.esdc.shapes.exception.InvalidShapeException;
-import lt.esdc.shapes.util.IDGenerator;
-import lt.esdc.shapes.validator.RectangleValidator;
-import lt.esdc.shapes.validator.ValidationResult;
 
-public class ShapeFactory {
-    public enum ShapeType {
-        RECTANGLE
-    }
+/**
+ * Abstract factory for creating shape objects.
+ * This class defines the contract for the Factory Method pattern.
+ */
+public abstract class ShapeFactory {
     
-    private static final RectangleValidator rectangleValidator = new RectangleValidator();
+    /**
+     * Creates a shape with the given points.
+     * This is the factory method that concrete factories must implement.
+     *
+     * @param id Optional ID for the shape. If null, an ID should be generated.
+     * @param points Array of points that define the shape
+     * @return A new shape instance
+     * @throws InvalidShapeException if the shape is invalid
+     */
+    public abstract Shape createShape(String id, Point... points) throws InvalidShapeException;
     
-    public static Shape createShape(ShapeType type, Point point1, Point point2, Point point3, Point point4) throws InvalidShapeException {
-        switch (type) {
-            case RECTANGLE:
-                Rectangle rectangle = new Rectangle(null, point1, point2, point3, point4);
-                ValidationResult validation = rectangleValidator.validate(rectangle);
-                if (!validation.isValid()) {
-                    throw new InvalidShapeException(validation.getErrorMessage());
-                }
-                String id = IDGenerator.generateId();
-                rectangle.setId(id);
-                return rectangle;
-            default:
-                throw new InvalidShapeException("Illegal shape type: " + type);
-        }
+    /**
+     * Creates a shape with an auto-generated ID and the given points.
+     *
+     * @param points Array of points that define the shape
+     * @return A new shape instance
+     * @throws InvalidShapeException if the shape is invalid
+     */
+    public Shape createShape(Point... points) throws InvalidShapeException {
+        return createShape(null, points);
     }
 }

@@ -58,9 +58,7 @@ public class RectangleParserService {
             
             // Создаем прямоугольник через фабрику
             String id = parts[0]; // ID из строки данных
-            return (Rectangle) rectangleFactory.createShape(
-                id,
-                points[0], points[1], points[2], points[3]);
+            return (Rectangle) rectangleFactory.createShape(id, points);
         } catch (InvalidShapeException e) {
             LOGGER.warn("Invalid rectangle data: {}", line, e);
             return null;
